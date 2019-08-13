@@ -1,0 +1,36 @@
+{include file="common/top"}
+
+<div class="main">
+    <div class="bt1-5">
+        <p>
+            {$articled.sort_name} <span>所在位置: <a href="">网站首页</a> > <a href="">{$articled.sort_name}</a> > 新闻详情 </span>
+        </p>
+    </div>
+
+    <div class="newsd1-0">
+        <div class="newsd1-1">
+            <div class="newsd1-2">
+                <p class="p2">{$articled.addtime|strip_tags|mb_substr=0,4,'utf-8'}</p>
+                <p>{$articled.addtime|strip_tags|mb_substr=5,5,'utf-8'}</p>
+            </div>
+        </div>
+
+        <h3 style="line-height: 27px;margin-top: 22px;">{$articled.article_name}</h3>
+        <h5 style="color: #999;">{$articled.article_xbt}</h5>
+
+        <div class="bcard_cnt">
+            {$articled.article_content}
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{include file="common/bottom"}
+
+<script type="text/javascript">
+    $(document.body).attr('style','background-color: #eeeeee;');
+</script>

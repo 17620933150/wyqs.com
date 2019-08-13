@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="__ADMIN__/css/font.css">
+    <link rel="stylesheet" href="__ADMIN__/css/xadmin.css">
+    <script src="__ADMIN__/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__ADMIN__/js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<!--<div class="x-nav">-->
+<!--            <span class="layui-breadcrumb">-->
+<!--                <a href="">首页</a>-->
+<!--                <a href="">演示</a>-->
+<!--                <a>-->
+<!--                    <cite>导航元素</cite></a>-->
+<!--            </span>-->
+<!--    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"-->
+<!--       onclick="location.reload()" title="刷新">-->
+<!--        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>-->
+<!--    </a>-->
+<!--</div>-->
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5" onSubmit="return false;">
+                        <div class="layui-inline layui-show-xs-block">
+                            <input type="text" name="ownername" id="ownername" placeholder="请输入业主名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <select id="shipping" name="shipping" class="valid">
+                                <option value="0">全部</option>
+                                <option value="是">已结清</option>
+                                <option value="否">未结清</option></select>
+                        </div>
+
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" id="sreach" lay-filter="sreach">
+                                <i class="layui-icon">&#xe615;</i>
+                            </button>
+                        </div>
+
+                    </form>  
+                </div>
+
+                <div class="layui-card-header">
+<!--                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除-->
+<!--                    </button>-->
+                    <button class="layui-btn" onclick="xadmin.open('添加业主','{:url(\'admin/owner/owneradd\',\'\',\'\')}/?key={$key}',800,700)"><i
+                            class="layui-icon"></i>添加业主
+                    </button>
+                    <div style="width: 12%; float:right;">(1为 是.已提交.已立案)</div>
+                </div>
+
+                <div class="layui-card-body ">
+                    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData"> 获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll"> 验证是否全选</button>
+    </div>
+</script>
+<script>
+    layui.use(['form', 'layer','laydate','table'], function(){
+        var table = layui.table;
+
+        $ = layui.jquery;
+        var form = layui.form;
+        var laydate = layui.laydate;
+
+        table.render({
+            elem: '#test'
+            ,url:'{:url(\'admin/owner/ownerjson\',\'\',\'\')}/?key={$key}'
+            ,cols: [[
+                {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                // ,{field:'email', title:'邮箱', width:150, templet: function(res){
+                //         return '<em>'+ res.email +'</em>'
+                //     }}
+                ,{field:'owner_name', edit: 'text', title:'姓名',width: 80}
+                ,{field:'owner_fang', edit: 'text', title:'房号',width: 80}
+                ,{field:'owner_card', edit: 'text', title:'身份证号码',width: 120}
+                ,{field:'owner_address', edit: 'text', title:'住址',width: 80}
+                ,{field:'owner_phone', edit: 'text', title:'电话', width: 100}
+                ,{field:'owner_area', edit: 'text', title:'房屋面积',width: 100}
+                ,{field:'email_arrears', edit: 'text', title:'欠费日期',width: 120}
+                ,{field:'email_arrearsy', edit: 'text', title:'欠费月份额',width: 100}
+                ,{field:'owner_unit', edit: 'text', title:'单价',width: 100}
+                ,{field:'email_y', edit: 'text', title:'物业/月',width: 80}
+                ,{field:'owner_fee', edit: 'text', title:'总物业管理费',width: 100}
+                ,{field:'owner_default', edit: 'text', title:'违约金',width: 80,templet: function(res){
+                                 return '<font color="red">'+ res.owner_default +'</font>'
+                             }}
+                ,{field:'email_to', edit: 'text', title:'合计',width: 80}
+                ,{field:'email_pytime', edit: 'text', title:'缴费日期',width: 120}
+                ,{field:'email_sum', edit: 'text', title:'已交金额', width: 80,templet: function(res){
+                        return '<font color="#009688">'+ res.email_sum +'</font>'
+                    }}
+                ,{field:'settle', edit: 'text', title:'是否结清', width: 80,templet: function(res){
+                        if (res.settle == 1){
+                            return '是';
+                        }else {
+                            return '';
+                        }
+
+                    }}
+                ,{field:'servicegold', edit: 'text', title:'服务佣金',width: 80}
+                ,{field:'owner_letter', edit: 'text', title:'律师函',width: 80,templet: function(res){
+                        if (res.owner_letter == 1){
+                            return '<font color="red">已提交</font>';
+                        }else {
+                            return '';
+                        }
+
+                    }}
+                ,{field:'owner_story', edit: 'text', title:'起诉状',width: 80,templet: function(res){
+                        if (res.owner_story == 1){
+                            return '<font color="red">已提交</font>';
+                        }else {
+                            return '';
+                        }
+
+                    }}
+                ,{field:'owner_case', edit: 'text', title:'立案',width: 80,templet: function(res){
+                        if (res.owner_case == 1){
+                            return '<font color="red">已立案</font>';
+                        }else {
+                            return '';
+                        }
+
+                    }}
+
+            ]]
+            ,limit: 50
+            ,page: true
+            ,done: function (res,curr,count) {
+                // console.log(res);
+                // console.log(curr);
+                // console.log(count);
+                // $('tr').eq(1).css("color","#ff0000");
+                var index=-1;
+                //分类显示中文名称
+                $("[data-field='settle']").children().each(function () {
+                    index++;
+                    if ($(this).text() == '是') {
+                        //  $('tr').eq(index).css("background-color",BJCOLOR);
+                        $('tr').eq(index).css("color","#009688");
+                    }
+                });
+                var index=-1;
+                $("[data-field='owner_case']").children().each(function () {
+                    index++;
+                    if ($(this).text() == '已立案') {
+                        //  $('tr').eq(index).css("background-color",BJCOLOR);
+                        $('tr').eq(index).css("color","red");
+                    }
+                });
+            }
+        });
+
+
+
+        //监听行单击事件（单击事件为：rowDouble）
+        // table.on('row(test)', function(obj){
+        //     var data = obj.data;
+        //
+        //     layer.alert(JSON.stringify(data), {
+        //         title: '当前行数据：'
+        //     });
+        //
+        //     //标注选中样式
+        //     obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+        // });
+
+        //监听单元格编辑
+        table.on('edit(test)',
+            function (obj) {
+                var value = obj.value //得到修改后的值
+                    ,
+                    data = obj.data //得到所在行所有键值
+                    ,
+                    field = obj.field; //得到字段
+
+                $.ajax({
+                    url: "{:url('/admin/owner/owneredit')}",
+                    data: {
+                        "value":value,
+                        'field':field,
+                        'id':data.id,
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (date) {
+                        if (date.taatus == '200') {
+                            layer.msg(date.msg, {
+                                    icon: 6
+                                },
+                                function () {
+                                    // //关闭当前frame
+                                    // xadmin.close();
+                                    // // 可以对父窗口进行刷新
+                                    // xadmin.father_reload();
+                                });
+                            return false;
+                        }else {
+                            layer.msg(date.msg, {icon: 5, time: 1000});
+                        }
+                    },
+                    fail: function (err) {
+                        alert('请求失败! 请联系管理员');
+                        location.reload()
+                    }
+                });
+            });
+
+        //监听提交
+        // form.on('submit(sreach)',
+        //     function (data) {
+        //         var $ = layui.$, active =
+        //             {
+        //                 reload: function () {
+        //                     var demoReload = $('#demoReload').val();//获取输入框的值
+        //                     //执行重载
+        //                     table.reload('test',
+        //                         {
+        //                             page:
+        //                                 {
+        //                                     curr: 1 //重新从第 1 页开始
+        //                                 }
+        //                             , where: {name: demoReload}//这里传参  向后台
+        //                             , url: '/Home/Temp_search'//后台做模糊搜索接口路径
+        //                             , method: 'post'
+        //                         });
+        //                 }
+        //
+        //             }
+        //
+        //         console.log(data);
+        //         return false;
+        //         var da = data.field;
+        //         $.ajax({
+        //             url: "",
+        //             data: {'property_phone':da.property_phone},
+        //             type: 'post',
+        //             dataType: 'json',
+        //             success: function (date) {
+        //                 if (date.taatus == '200') {
+        //                     layer.alert(date.msg, {
+        //                             icon: 6
+        //                         },
+        //                         function () {
+        //                             //关闭当前frame
+        //                             xadmin.close();
+        //                             // 可以对父窗口进行刷新
+        //                             xadmin.father_reload();
+        //                         });
+        //                     return false;
+        //                 }else {
+        //                     layer.msg(date.msg, {icon: 5, time: 1000});
+        //                 }
+        //             },
+        //             fail: function (err) {
+        //                 alert('请求失败! 请联系管理员');
+        //                 location.reload()
+        //             }
+        //         });
+        //
+        //         return false;
+        //     });
+
+        $('#sreach').on('click', function () {
+            // 搜索条件
+            var ownername = $('#ownername').val();
+            var shipping = $('#shipping').val();
+            table.reload('test', {
+                method: 'post'
+                , where: {
+                    'ownername': ownername,
+                    'shipping':shipping,
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        });
+
+
+        //头工具栏事件
+        table.on('toolbar(test)',
+            function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'getCheckData':
+                        var data = checkStatus.data;
+                        layer.alert(JSON.stringify(data));
+                        break;
+                    case 'getCheckLength':
+                        var data = checkStatus.data;
+                        layer.msg('选中了：' + data.length + ' 个');
+                        break;
+                    case 'isAll':
+                        layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                        break;
+                }
+                ;
+            });
+
+
+    });
+</script>
+
+
+</html>

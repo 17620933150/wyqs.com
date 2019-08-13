@@ -1,0 +1,321 @@
+{include file="common/top"}
+
+
+<div class="main">
+
+<!--    关于我们-->
+<!--    <div class="bt1-0">-->
+<!--        关于我们-->
+<!--    </div>-->
+<!--    <div class="bt1-1"></div>-->
+<!--    <div class="bt1-2">-->
+<!--        <div class="bt1-3">-->
+<!--            <img src="__INDEX__/image/gy.png" alt="">-->
+<!--        </div>-->
+<!--        <div class="bt1-4">-->
+<!--            <h2>了解我们</h2>-->
+<!--            <p>-->
+<!--                物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,-->
+<!--                物业纠纷案件大量增长,其中,绝大多数是物业公司起诉物业管理费清-->
+<!--                收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大-->
+<!--                业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长收 近年来,物业-->
+<!--                公司与业主之间的矛盾纠纷日显突出-->
+
+<!--            </p>-->
+<!--            <div class="more" style="float: right;">-->
+<!--                <a href="">更多</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    关于我们end-->
+
+<!--    物业动态-->
+    <div class="bt1-0">物业动态</div>
+    <div class="bt1-1"></div>
+    <div class="wy1-0">
+       <div class="wy1-1" style="margin-right: 2%;">
+           <h2>欠费业主</h2>
+            <div class="wy1-2" style="">
+                <table id="tableId" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>小区</th>
+                        <th>姓名</th>
+                        <th>欠费时间</th>
+                        <th>欠费金额</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name='ownerdata' id='v' key='k'}
+                        <tr>
+                            <td>{$k}</td>
+                            <td>{$v.uidname}</td>
+                            <td>{$v.owner_name}</td>
+                            <td>{$v.email_arrears}至{$v.email_arrearsend}</td>
+                            <td>{$v.email_to}</td>
+                            <td>{$v.mode}</td>
+                        </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+       </div>
+
+
+    </div>
+    <button type="button"  onclick="jm('{:url(\'/chax\')}')" class="layui-btn layui-btn-fluid  layui-btn-normal">点击在线查询是否欠费<i class="layui-icon layui-icon-search"></i></button>
+<!--    物业动态end-->
+
+<!--    办公室环境-->
+    <div class="bt1-0">办公室环境</div>
+    <div class="bt1-1"></div>
+
+    <div class="bg1-0">
+        <img class="flleft" style="width: 539px;height: 181px;" src="__INDEX__/image/10004CARA3328.png" alt="">
+        <div class="bg1-1 flleft">
+            <h2>会议室</h2>
+            <p>会议室我也是事实立刻就看了</p>
+        </div>
+        <img class="flleft" style="width: 270px;height: 181px;" src="__INDEX__/image/10003CARA3337.png" alt="">
+        <div class="bg1-2 flleft">
+            <h2>会议室</h2>
+            <p>为管理费清收,近年来,物业公式业主之间的矛盾</p>
+            <img class="" style="width: 241px;margin-top: 90px;" src="__INDEX__/image/10001CARA3340.png" alt="">
+        </div>
+
+        <div class="flleft bg1-4">
+            <img style="" src="__INDEX__/image/10002CARA3361.png" alt="">
+            <div class="bg1-3 flleft">
+                <h2>办公室</h2>
+                <p>为管理费清收,近年来,物业公式业主之间的矛盾</p>
+            </div>
+        </div>
+
+        <div class="bg1-2 flleft">
+            <h2>会议室</h2>
+            <p>为管理费清收,近年来,物业公式业主之间的矛盾</p>
+        </div>
+        <img class="flleft" style="width: 241px;" src="__INDEX__/image/10000CARA3325.png" alt="">
+    </div>
+<!--办公室环境-->
+
+
+<!--    部分分公司-->
+<!--    <div class="bt1-0">部分分公司</div>-->
+<!--    <div class="bt1-1"></div>-->
+<!--    <div class="fgs1-0">-->
+<!--        <div class="fgs1-1">-->
+<!--            <div class="fgs1-2 flleft">-->
+<!--                <img src="__INDEX__/image/0001.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="fgs1-2 flleft fgs-size">-->
+<!--                <h2>龙华分所</h2>-->
+<!--                <p>-->
+<!--                    物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长,其中,绝大多数是物业公司起诉物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="fgs1-2 flleft">-->
+<!--                <img src="__INDEX__/image/0001.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="fgs1-2 flleft fgs-size">-->
+<!--                <h2>龙华分所</h2>-->
+<!--                <p>-->
+<!--                    物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长,其中,绝大多数是物业公司起诉物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="fgs1-2 flleft">-->
+<!--                <img src="__INDEX__/image/0001.png" alt="">-->
+<!--            </div>-->
+<!--            <div class="fgs1-2 flleft fgs-size">-->
+<!--                <h2>龙华分所</h2>-->
+<!--                <p>-->
+<!--                    物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长,其中,绝大多数是物业公司起诉物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--部分分公司-->
+
+<!--    加盟签约-->
+    <div class="bt1-0">加盟签约</div>
+    <div class="bt1-1"></div>
+
+</div>
+    <div class="jm1-0">
+        <div class="main">
+            <p>物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长,其中,绝大多数是物业公司起诉物业管理费清收 近年来,物业公司与业主之间的矛盾纠纷日显突出,物业纠纷案件大业主之间的矛盾纠纷日显突出,物业纠纷案件大量增长</p>
+            {volist name="hjiamen" id="v"  offset="0" length='3'}
+            <img src="{$v.article_fm}" alt="">
+            {/volist}
+        </div>
+    </div>
+
+<div class="main">
+    <div class="jm1-1">
+        <ul>
+            {volist name="hjiamen" id="v"}
+            <li>
+                <div class="jm1-2">
+                    <p class="tm">{$v.addtime|strip_tags|mb_substr=0,11,'utf-8'}</p>
+                    <p>{$v.article_name}</p>
+                </div>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+
+    <!--    加盟签约-->
+    <div class="bt1-0">胜诉案件</div>
+    <div class="bt1-1"></div>
+    <div class="ss1-0">
+        {volist name='hsensu' id='v' offset="0" length='1'}
+        <div class="ss1-1 flleft">
+            <img src="{$v.article_fm}" alt="">
+            <div class="ss1-2">
+                <h3>{$v.article_name}</h3>
+                <span>{$v.addtime|strip_tags|mb_substr=0,11,'utf-8'}</span>
+                <p>{$v.article_content|strip_tags|mb_substr=0,50,'utf-8'}......<span><a href="">更多</a></span></p>
+            </div>
+        </div>
+        {/volist}
+        <div class="ss1-3 flleft">
+            <ul>
+                {volist name='hsensu' id='v' offset="1" length='5'}
+                <li>
+                    <div class="ss1-4">
+                        <h2>{$v.addtime|strip_tags|mb_substr=0,4,'utf-8'}</h2>
+                        <div class="xiah"></div>
+                        <p>{$v.addtime|strip_tags|mb_substr=5,6,'utf-8'}</p>
+                    </div>
+                    <h3>{$v.article_name}</h3>
+                    <p>{$v.article_content|strip_tags|mb_substr=0,50,'utf-8'}......<span><a href="">更多</a></span></p>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <!--    加盟签约-->
+
+
+    <div class="bt1-0">案件签约</div>
+    <div class="bt1-1"></div>
+    <div class="aj1-0">
+        <ul>
+            <li class="flleft">
+                <img src="__INDEX__/image/0004.png" alt="">
+                <div class="aj1-1">
+                    <p>2019/7/15</p>
+                    <p>与某某某某公司签约</p>
+                </div>
+            </li>
+            <li class="flleft">
+                <img src="__INDEX__/image/0004.png" alt="">
+                <div class="aj1-1">
+                    <p>2019/7/15</p>
+                    <p>与某某某某公司签约</p>
+                </div>
+            </li>
+            <li class="flleft">
+                <img src="__INDEX__/image/0004.png" alt="">
+                <div class="aj1-1">
+                    <p>2019/7/15</p>
+                    <p>与某某某某公司签约</p>
+                </div>
+            </li>
+            <li class="flleft">
+                <img src="__INDEX__/image/0004.png" alt="">
+                <div class="aj1-1">
+                    <p>2019/7/15</p>
+                    <p>与某某某某公司签约</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+{include file="common/bottom"}
+<script>
+
+    // 参数1 tableID,参数2 div高度，参数3 速度，参数4 tbody中tr几条以上滚动
+    tableScroll('tableId', 600, 30, 10)
+    var MyMarhq;
+
+    function tableScroll(tableid, hei, speed, len) {
+        clearTimeout(MyMarhq);
+        $('#' + tableid).parent().find('.tableid_').remove()
+        $('#' + tableid).parent().prepend(
+            '<table class="tableid_"><thead>' + $('#' + tableid + ' thead').html() + '</thead></table>'
+        ).css({
+            'position': 'relative',
+            'overflow': 'hidden',
+            'height': hei + 'px'
+        })
+        $(".tableid_").find('th').each(function(i) {
+            $(this).css('width', $('#' + tableid).find('th:eq(' + i + ')').width());
+        });
+        $(".tableid_").css({
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'z-index': 9
+        })
+        $('#' + tableid).css({
+            'position': 'absolute',
+            'top': 0,
+            'left': 0,
+            'z-index': 1
+        })
+
+        if ($('#' + tableid).find('tbody tr').length > len) {
+            $('#' + tableid).find('tbody').html($('#' + tableid).find('tbody').html() + $('#' + tableid).find('tbody').html());
+            $(".tableid_").css('top', 0);
+            $('#' + tableid).css('top', 0);
+            var tblTop = 0;
+            var outerHeight = $('#' + tableid).find('tbody').find("tr").outerHeight();
+
+            function Marqueehq() {
+                if (tblTop <= -outerHeight * $('#' + tableid).find('tbody').find("tr").length) {
+                    tblTop = 0;
+                } else {
+                    tblTop -= 1;
+                }
+                $('#' + tableid).css('margin-top', tblTop + 'px');
+                clearTimeout(MyMarhq);
+                MyMarhq = setTimeout(function() {
+                    Marqueehq()
+                }, speed);
+            }
+
+            MyMarhq = setTimeout(Marqueehq, speed);
+            $('#' + tableid).find('tbody').hover(function() {
+                clearTimeout(MyMarhq);
+            }, function() {
+                clearTimeout(MyMarhq);
+                if ($('#' + tableid).find('tbody tr').length > len) {
+                    MyMarhq = setTimeout(Marqueehq, speed);
+                }
+            })
+        }
+
+    }
+
+    $('.head1-2 ul li:nth-child(1)').addClass('amid');
+
+
+    function jm(url) {
+        //页面层
+        layer.open({
+            type: 2,
+            title:'业主信息查询',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['900px', '700px'], //宽高
+            content: url,
+
+        });
+
+    }
+</script>
+

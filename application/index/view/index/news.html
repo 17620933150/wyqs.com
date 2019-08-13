@@ -1,0 +1,119 @@
+{include file="common/top"}
+
+
+<div class="main news1-0">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            {volist name='sort' id='v' key='k'}
+            {if condition="($k == 1)"}<li class="layui-this">{$v.sort_name}</li>{else /}<li>{$v.sort_name}</li>{/if}
+            {/volist}
+        </ul>
+        <div class="layui-tab-content">
+            {volist name='sort' id='v'}
+                {foreach name='article' item='value' key='k'}
+                    {eq name="$v['id']" value="$k"}
+                        {if condition="($k == 2)"} <div class="layui-tab-item layui-show">{else /} <div class="layui-tab-item">{/if}
+                        <ul id="tbady{$k}">
+                            {volist name="article[$k]" id='newsv'}
+                                    <li class="layui-anim layui-anim-scale">
+                                        <a href="{:url('/new/','','')}{$newsv.id}.html">
+                                            <img src="{$newsv.article_fm}" alt="">
+                                            <div class="news1-3">
+                                                <div class="news1-1">
+                                                    <p class="p1">{$newsv.addtime|strip_tags|mb_substr=0,4,'utf-8'}</p>
+                                                    <p>{$newsv.addtime|strip_tags|mb_substr=5,5,'utf-8'}</p>
+                                                </div>
+                                                <div class="news1-2">
+                                                    <p class="p1">{$newsv.article_name}</p>
+                                                    <p>{$newsv.article_content|strip_tags|mb_substr=0,13,'utf-8'}....</p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                            {/volist}
+                        </ul>
+                        <div id="demo{$k}" style="float: right;"></div>
+                    </div>
+                    {/eq}
+                {/foreach}
+            {/volist}
+        </div>
+    </div>
+</div>
+
+{include file="common/bottom"}
+<script>
+
+    $('.head1-2 ul li:nth-child(4)').addClass('amid');
+        //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use([ 'element','laypage','layer'], function(){
+        var carousel = layui.carousel,
+            element = layui.element,
+            laypage = layui.laypage,
+            layer = layui.layer;
+        //完整功能
+        //总页数大于页码总数
+        var page_num = 6;
+        var current_page = 1
+
+        {volist name='sort' id='v'}
+        {foreach name='art' item='value' key='k'}
+        {eq name="$v['id']" value="$k"}
+
+            laypage.render({
+                elem: 'demo{$k}'
+                ,count: {$value} //数据总数
+                ,limit: page_num//一页展示多少条数据
+                ,curr:current_page//当前页
+                ,jump: function(obj,first){
+                    if(!first) {
+                        $.ajax({
+                            url: "{:url('/index/index/newspa')}",
+                            data: {'page': obj.curr, 'limit': obj.limit, 'sid': {$k}},
+                            type: 'post',
+                            dataType: 'json',
+                            success: function (date) {
+                                page_num = date.limit;
+                                current_page = date.page;
+                                var text = '';
+                                for (var i = 0, l = date.data.length; i < l; i++) {
+                                    text += "<li class='layui-anim layui-anim-scale'>\n" +
+                                        "<a href=\"{:url('/new/','','')}{$newsv.id}.html\">\n" +
+                                        "                        <img src=\"" + date.data[i].article_fm + "\" alt=\"\">\n" +
+                                        "                        <div class=\"news1-3\">\n" +
+                                        "                            <div class=\"news1-1\">\n" +
+                                        "                                <p class=\"p1\">2018</p>\n" +
+                                        "                                <p>10-15</p>\n" +
+                                        "                            </div>\n" +
+                                        "                            <div class=\"news1-2\">\n" +
+                                        "                                <p class=\"p1\">" + date.data[i].article_name + "</p>\n" +
+                                        "                                <p>" + date.data[i].article_content.replace(/<[^>]+>/g,"").substring(0,13) + "....</p>\n" +
+                                        "                            </div>\n" +
+                                        "                        </div>\n" +
+                                            "</a>\n" +
+                                        "                    </li>"
+                                }
+                                $('#tbady{$k}').html(text);
+                                text = '';
+                            },
+                            fail: function (err) {
+                                alert('请求失败! 请联系管理员');
+                                location.reload()
+                            }
+
+                        });
+                    }
+                }
+            });
+        {/eq}
+        {/foreach}
+        {/volist}
+
+    });
+
+
+</script>
+
+
+

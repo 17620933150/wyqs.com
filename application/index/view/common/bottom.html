@@ -1,0 +1,56 @@
+
+<div class="yq1-0">
+    <h2>友情链接</h2>
+</div>
+<div class="main">
+    <div class="yq1-1">
+        <ul>
+            {volist name="friend" id='v'}
+            <li class="">
+                <a href="{$v.friend_url}">{$v.friend_name}</a>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+</div>
+<div class="yq1-2">
+    <div class="main">
+        <div class="yq1-3">
+            <ul>
+                <li><a href="{:url('index/index/index')}">首页</a></li>
+                <li><a href="{:url('index/index/profile')}">律所介绍</a></li>
+                <li><a href="{:url('index/index/xmews')}">项目介绍</a></li>
+                <li><a href="{:url('index/index/news')}">行业动态</a></li>
+                <li><a href="{:url('index/index/jiameng')}">招商合作</a></li>
+                <li><a href="{:url('admin/login/login')}">内部平台</a></li>
+            </ul>
+        </div>
+        <div class="yq1-4">
+            <p>地址：广州市天河区某某某某某某某某某某     咨询热线：020-8928121</p>
+            <p>Copyright © 2018 广东国晖（广州）律师事务所 版权所有     邮箱：gz@5888888888</p>
+            <p>全国十强律所</p>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="__INDEX__/layui/layui.all.js"></script>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            ,width: '100%' //设置容器宽度
+            ,height:'800px'//设置容高度
+            ,arrow: 'always' //始终显示箭头
+            //,full:'true'//是否全屏轮播
+            ,anim: 'fade' //切换动画方式
+        });
+    });
+
+
+</script>
+
+
+</html>

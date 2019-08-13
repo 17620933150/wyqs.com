@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>国晖物业清收</title>
+    <link rel="stylesheet" href="__INDEX__/css/css.css">
+    <link rel="stylesheet" href="__INDEX__/layui/css/layui.css" media="all">
+</head>
+<body>
+
+
+<div class="layui-carousel" id="test1">
+    <div carousel-item>
+        {volist name='lunbotu' id='v'}
+        <div style="background: url({$v.img_url});background-size: 100% 100%;">
+            {include file="common/topimg"}
+        </div>
+        {/volist}
+    </div>
+</div>

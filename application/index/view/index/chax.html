@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>业主信息查询</title>
+    <link rel="stylesheet" href="__INDEX__/layui/css/layui.css" media="all">
+</head>
+<body>
+
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>业主信息查询</legend>
+</fieldset>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form action="" method="post" class="layui-form layui-form-pane" onSubmit="return false;">
+            <div class="layui-form-item">
+                <label for="owner_name" class="layui-form-label">
+                    <span class="x-red">*</span>姓名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="owner_name" name="owner_name" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="owner_phone" class="layui-form-label">
+                    <span class="x-red">*</span>电话
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="owner_phone" name="owner_phone" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="owner_card" class="layui-form-label">
+                    <span class="x-red">*</span>身份证号码
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="owner_card" name="owner_card" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn" onclick="tijiao()">查询</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="layui-card-body ">
+    <table class="layui-table layui-form">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>地址</th>
+            <th>是否缴费</th>
+            <th>已交费</th>
+            <th>总欠费</th>
+            <th>是否起诉</th>
+        </thead>
+        <tbody id="tbady11">
+
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="__INDEX__/layui/layui.all.js"></script>
+<script type="text/javascript">
+    function tijiao() {
+        var owner_name = $('#owner_name').val();//业主名称
+        var owner_phone = $('#owner_phone').val();//业主电话
+        var owner_card = $('#owner_card').val();//业主身份证
+        if (owner_name == '' ) {
+            layer.msg('名称不能为空!', {icon: 5, time: 1000});
+            return false;
+        }
+        if (owner_phone == '' ) {
+            layer.msg('电话不能为空!', {icon: 5, time: 1000});
+            return false;
+        }
+        if (owner_card == '' ) {
+            layer.msg('身份证不能为空!', {icon: 5, time: 1000});
+            return false;
+        }
+        var re= /^1[34578]\d{9}$/;
+        if(!re.test(owner_phone)) {
+            layer.msg('请输入正确的电话号码!', {icon: 5, time: 1000});
+            return false;
+        }
+        var pattern = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+        if (!pattern.test(owner_card)) {
+            layer.msg('请输入正确的身份证号码!', {icon: 5, time: 1000});
+            return false;
+        }
+        $.ajax({
+            url: "",
+            data: {'owner_name':owner_name,'owner_phone':owner_phone,'owner_card':owner_card},
+            type: 'post',
+            dataType: 'json',
+            success: function (date) {
+                if (date.taatus == '500') {
+                    layer.msg(date.msg, {icon: 5, time: 1000});
+                }else {
+                    var text = '';
+                    Object.keys(date).forEach(function(key){
+                        var settle =  date[key].settle == 1 ? '是':'否';
+                        if(date[key].email_sum == null) {
+                            date[key].email_sum = '0.00';
+                        }
+                        text += ' <tr>\n' +
+                            '            <td>'+date[key].id+'</td>\n' +
+                            '            <td>'+date[key].owner_name+'</td>\n' +
+                            '            <td>'+date[key].uidname+'</td>\n' +
+                            '            <td>'+settle+'</td>\n' +
+                            '            <td>'+date[key].email_sum+'</td>\n' +
+                            '            <td style="color: #f00;">'+date[key].email_to+'</td>\n' +
+                            '            <td>'+date[key].mode+'</td>\n' +
+                            '        </tr>'
+                    });
+                    $('#tbady11').html(text);
+                }
+            },
+            fail: function (err) {
+                alert('请求失败! 请联系管理员');
+                location.reload();
+            }
+
+        });
+    }
+</script>
+</html>
